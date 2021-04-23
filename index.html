@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.css" type="text/css">
+
+        <title>What is your Carbon Footprint?</title>
+    </head>
+    <body>
+
+        <header>
+            <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">What is CF?</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Calculation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sources</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="banner">
+                <h1 id="header-text">What is your Carbon Footprint?</h1>
+                <img src="imgs/turbines.jpg" class="img-fluid" alt="wind-turbines" id="header-img">
+            </div>
+        </header>
+
+        <div class="container" id="content">
+
+            <!-- First model goes here -->
+            <div class="row">
+                <div class="col-12">
+                    <canvas></canvas>
+                </div>
+            </div>
+
+            <!-- accordion-container -->
+            <div class="row accordion-row">
+                <div class="col-12">
+                    <div class="accordion accordion-flush" id="accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Public Transportation
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> How often do you travel by plane?</h5>
+                                                    <label for="customRange" class="form-label start">Never</label>
+                                                    <input type="range" class="form-range" min="0" max="5" step="1" id="customRange">
+                                                    <label for="customRange" class="form-label end">Once a month</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> How many times a day do you take the bus?</h5>
+                                                    <label for="customRange" class="form-label start">0</label>
+                                                    <input type="range" class="form-range" min="0" max="5" step="1" id="customRange">
+                                                    <label for="customRange" class="form-label end">10</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> How often do you travel by train?</h5>
+                                                    <label for="customRange" class="form-label start">Never</label>
+                                                    <input type="range" class="form-range" min="0" max="5" step="1" id="customRange">
+                                                    <label for="customRange" class="form-label end">Every day</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">How many times a day do you travel by car?</h5>
+                                                    <label for="customRange" class="form-label start">0</label>
+                                                    <input type="range" class="form-range" min="0" max="5" step="1" id="customRange">
+                                                    <label for="customRange" class="form-label end">10</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    Accordion Item #2
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    Placeholder content for this accordion, which is intended to demonstrate the
+                                    <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being
+                                    filled with some actual content.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    Accordion Item #3
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    Placeholder content for this accordion, which is intended to demonstrate the
+                                    <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting
+                                    happening here in terms of content, but just filling up the space to make it look, at least at first
+                                    glance, a bit more representative of how this would look in a real-world application.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What are the effects -->
+            <div class="row effects-row" id="effects">
+                <h2>What are the effects?</h2>
+                <p>If everyone on the Earth decided to live this way, the global CO2 emissions would reach X by Y.</p>
+                <canvas></canvas>
+            </div>
+
+            <!-- What can you do? -->
+            <div class="row can-do-row">
+                <div class="row">
+                    <h2>What can you do?</h2>
+                </div>
+                <div class="row can-do-card-row">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-3">
+                                <img src="imgs/public-transport.jpg" alt="roads">
+                            </div>
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">Public Transport</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                                        content. This content is a little bit longer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <!-- to-do -->
+        </footer>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>
+        <script src="script.js" type="text/javascript"></script>
+    </body>
+</html>

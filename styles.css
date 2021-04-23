@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+}
+
+.card img {
+    max-width: 100%;
+}
+
+.card-body .form-label.end {
+    float: right;
+}
+
+.can-do-row .card {
+    padding-left: 0;
+}
+
+#effects {
+    text-align: center;
+}
+
+#header-img {
+    max-height: 650px;
+    width: 100%;
+    object-fit: cover;
+    position: relative;
+    filter: brightness(75%);
+}
+
+#header-text {
+    position: absolute;
+    top: 75%;
+    left: 10%;
+    z-index: 1;
+    color: #fff;
+}
+
+.navbar {
+ background-color: #04143a!important;
+}
+
+.row {
+    margin-bottom: 25px;
+}
+
+.accordion-row, .effects-row {
+    margin-bottom: 100px;
+}
