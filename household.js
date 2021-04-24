@@ -1,5 +1,4 @@
 // getting g CO_2e / year
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
 // options: dollars, price
 function directHouseEms(options) {
@@ -43,6 +42,7 @@ function indirectHouseEms(state) { //NOTE: a little inefficient
   "Washington": 1281.442, "Wisconsin": 1612.155, "West Virginia": 2052.382,
   "Wyoming": 2368.877, "United States": 1381.591};
   consumptions[state] = consumptions[state] * 12.0 / 1000.0;
-  impacts[state] = impacts[state] * consumptions[state] / 2204.62; // conversion from metric ton
+  console.log("consumption: " + consumptions[state] + "MWh/year");
+  impacts[state] = impacts[state] * consumptions[state] / 2204.62 * 1000000; // conversion to metric ton
   return impacts[state];
 }
