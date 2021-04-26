@@ -54,11 +54,9 @@ function calcTransportationCost(flightsPerYear, busMilesPerDay,
 }
 
 
-function directHouseEms(options) {
-  if(!options.hasOwnProperty('dollars')) { options.dollars = 0; } //TODO avg spent on electricity
-  if(!options.hasOwnProperty('price')) { options.price = 0; } //TODO avg price
-  const emFactor = 682;
-  return options.dollars * options.price * emFactor;
+function directHouseEms(dollars) {
+  const emFactor = 682; // g/$
+  return dollars * emFactor;
 }
 
 function indirectHouseEms(state) { //NOTE: a little inefficient

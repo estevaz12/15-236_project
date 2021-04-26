@@ -51,6 +51,9 @@
             <div class="row">
                 <div class="col-12">
                     <h2 id="transportOutput">Transport</h2>
+                    <h2 id="houseOutput">House</h2>
+                    <h2 id="foodOutput">Food</h2>
+                    <h2 id="wasteOutput">Waste</h2>
                     <canvas id="firstModel"></canvas>
                 </div>
             </div>
@@ -124,9 +127,24 @@
                             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    Placeholder content for this accordion, which is intended to demonstrate the
-                                    <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being
-                                    filled with some actual content.
+                                  <div class="row">
+                                      <div class="col-3">
+                                          <div class="card">
+                                              <div class="card-body">
+                                                  <h5 class="card-title">What state do you live in?</h5>
+                                                  <input type="text" id="houseState">
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-3">
+                                          <div class="card">
+                                              <div class="card-body">
+                                                  <h5 class="card-title">How much do you spend on electricity and natural gas per year?</h5>
+                                                  <input type="number" min="0" max="500" value="10" step="1" id="houseBill">
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -199,12 +217,16 @@
         const trans_carMiles = document.getElementById("transCarMiles");
         const trans_carEfficiency = document.getElementById("transCarEff");
         const trans_out = document.getElementById("transportOutput");
+        const house_state = document.getElementById("houseState");
+        const house_bill = document.getElementById("houseBill");
+        const house_out = document.getElementById("houseOutput");
 
         function update() { // big
           let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
             parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
+          let house = directHouseEms(parseInt(house_bill.value)) + indirectHouseEms(house_state.value);
           trans_out.innerText = "Transport: " + transport;
-          console.log("Transport: " + transport);
+          house_out.innerText = "House: " + house;
         }
 
         update();
@@ -213,6 +235,8 @@
         trans_trainMiles.addEventListener("input", update);
         trans_carMiles.addEventListener("input", update);
         trans_carEfficiency.addEventListener("input", update);
+        house_state.addEventListener("input", update);
+        house_bill.addEventListener("input", update);
         </script>
     </body>
 </html>
