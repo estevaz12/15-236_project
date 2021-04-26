@@ -50,7 +50,8 @@
             <!-- First model goes here -->
             <div class="row">
                 <div class="col-12">
-                    <canvas></canvas>
+                    <h2 id="tempOutputNum">HEADER HERE</h2>
+                    <canvas id="firstModel"></canvas>
                 </div>
             </div>
 
@@ -73,7 +74,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title"> How many flights do you take per year?</h5>
-                                                    <input type="number" min="0" max="150" value="4" step="1">
+                                                    <input type="number" min="0" max="150" value="4" step="1" id="transFlights">
                                                 </div>
                                             </div>
                                         </div>
@@ -81,7 +82,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title"> How many miles do you travel a day by bus?</h5>
-                                                    <input type="number" min="0" max="150" value="10" step="1">
+                                                    <input type="number" min="0" max="150" value="10" step="1" id="transBus">
                                                 </div>
                                             </div>
                                         </div>
@@ -89,7 +90,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title"> How many miles do you travel a day by train?</h5>
-                                                    <input type="number" min="0" max="1000" value="10" step="1">
+                                                    <input type="number" min="0" max="1000" value="10" step="1" id="transTrain">
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +98,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">How many miles do you travel a day by car?</h5>
-                                                    <input type="number" min="0" max="700" value="45" step="1">
+                                                    <input type="number" min="0" max="700" value="45" step="1" id="transCarMiles">
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +106,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">How many miles per a gallon does you car get?</h5>
-                                                    <input type="number" min="0" max="150" value="25" step="1">
+                                                    <input type="number" min="0" max="150" value="25" step="1" id="transCarEff">
                                                 </div>
                                             </div>
                                         </div>
@@ -191,5 +192,24 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
         <script src="script.js" type="text/javascript"></script>
+        <script>
+        const trans_numFlights = document.getElementById("transFlights");
+        const trans_busMiles = document.getElementById("transBus");
+        const trans_trainMiles = document.getElementById("transTrain");
+        const trans_carMiles = document.getElementById("transCarMiles");
+        const trans_carEfficiency = document.getElementById("transCarEff");
+        const outNum = document.getElementById("tempOutputNum");
+
+        function update() { // big
+          let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
+            parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
+          let output = transport;
+          outNum.innerText = "Output Num: " + output;
+          console.log("Output Num: " + output);
+        }
+
+        update();
+        trans_numFlights.addEventListener("input", update);
+        </script>
     </body>
 </html>
