@@ -20,14 +20,22 @@ const kmPerMile = (1 / milesPerKm);
         - 200 calories Fruits and Vegetables
         - 900 calories (Added plant based oils and sugars which go into the Snack category from above)
  */
-function calcFood(vegetableCaloriesPerDay, grainCaloriesPerDay, nutsCaloriesPerDay,
-                  snackCaloriesPerDay, meatCaloriesPerDay, dairyCaloriesPerDay) {
+function calcFood(vegetableFruitPercent, grainPercent, nutsPercent,
+                  snackPercent, meatPercent, dairyPercent, caloriesPerDay) {
+    let totalPercent = vegetableFruitPercent + grainPercent + nutsPercent +
+                       snackPercent + meatPercent + dairyPercent;
+    let vegetableFruitCaloriesPerDay = (vegetableFruitPercent / totalPercent) * caloriesPerDay;
+    let meatCaloriesPerDay = (meatPercent / totalPercent) * caloriesPerDay;
+    let dairyCaloriesPerDay = (dairyPercent / totalPercent) * caloriesPerDay;
+    let grainCaloriesPerDay = (grainPercent / totalPercent) * caloriesPerDay;
+    let nutsCaloriesPerDay = (nutsPercent / totalPercent) * caloriesPerDay;
+    let snackCaloriesPerDay = (snackPercent / totalPercent) * caloriesPerDay;
     let c02GramsPerDay = 0;
     c02GramsPerDay += meatCaloriesPerDay * 4.52
     c02GramsPerDay += nutsCaloriesPerDay * 7.39
     c02GramsPerDay += dairyCaloriesPerDay * 4.66;
     c02GramsPerDay += grainCaloriesPerDay * 1.47;
-    c02GramsPerDay += vegetableCaloriesPerDay * 3.03;
+    c02GramsPerDay += vegetableFruitCaloriesPerDay * 3.03;
     c02GramsPerDay += snackCaloriesPerDay * 3.73;
     let c02GramsPerYear = c02GramsPerDay * 365;
     return c02GramsPerYear;

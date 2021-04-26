@@ -132,7 +132,7 @@
                                           <div class="card">
                                               <div class="card-body">
                                                   <h5 class="card-title">What state do you live in?</h5>
-                                                  <input type="text" id="houseState">
+                                                  <input type="text" value="Illinois" id="houseState">
                                               </div>
                                           </div>
                                       </div>
@@ -152,16 +152,70 @@
                             <h2 class="accordion-header" id="flush-headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                    Accordion Item #3
+                                    Food
                                 </button>
                             </h2>
                             <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
-                                data-bs-parent="#accordion">
+                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    Placeholder content for this accordion, which is intended to demonstrate the
-                                    <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting
-                                    happening here in terms of content, but just filling up the space to make it look, at least at first
-                                    glance, a bit more representative of how this would look in a real-world application.
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> What percent of your diet is fruits and vegetables?</h5>
+                                                    <input type="number" min="0" max="100" value="10" step="1" id="vegetableFruitPercent">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> What percent of your diet is grains?</h5>
+                                                    <input type="number" min="0" max="100" value="20" step="1" id="grainPercent">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> What percent of your diet is nuts?</h5>
+                                                    <input type="number" min="0" max="100" value="2" step="1" id="nutsPercent">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> What percent of your diet is snacks?</h5>
+                                                    <input type="number" min="0" max="100" value="43" step="1" id="snackPercent">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> What percent of your diet is meat?</h5>
+                                                    <input type="number" min="0" max="100" value="15" step="1" id="meatPercent">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> What percent of your diet is dairy?</h5>
+                                                    <input type="number" min="0" max="100" value="10" step="1" id="dairyPercent">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> How many calories do you roughly eat per day?</h5>
+                                                    <input type="number" min="0" max="150" value="2100" step="1" id="caloriesPerDay">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -217,16 +271,30 @@
         const trans_carMiles = document.getElementById("transCarMiles");
         const trans_carEfficiency = document.getElementById("transCarEff");
         const trans_out = document.getElementById("transportOutput");
+
         const house_state = document.getElementById("houseState");
         const house_bill = document.getElementById("houseBill");
         const house_out = document.getElementById("houseOutput");
+
+        const fruitveg_percent = document.getElementById("vegetableFruitPercent");
+        const meat_percent = document.getElementById("meatPercent");
+        const dairy_percent = document.getElementById("dairyPercent");
+        const nut_percent = document.getElementById("nutsPercent");
+        const snack_percent = document.getElementById("snackPercent");
+        const grain_percent = document.getElementById("grainPercent");
+        const cal_per_day = document.getElementById("caloriesPerDay");
+        const food_out = document.getElementById("foodOutput");
 
         function update() { // big
           let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
             parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
           let house = directHouseEms(parseInt(house_bill.value)) + indirectHouseEms(house_state.value);
+          let food = calcFood(parseInt(fruitveg_percent.value), parseInt(meat_percent.value), parseInt(dairy_percent.value),
+                              parseInt(nut_percent.value), parseInt(snack_percent.value), parseInt(grain_percent.value),
+                              parseInt(cal_per_day.value));
           trans_out.innerText = "Transport: " + transport;
           house_out.innerText = "House: " + house;
+          food_out.innerText = "Food: " + food;
         }
 
         update();
@@ -237,6 +305,13 @@
         trans_carEfficiency.addEventListener("input", update);
         house_state.addEventListener("input", update);
         house_bill.addEventListener("input", update);
+        fruitveg_percent.addEventListener("input", update);
+        meat_percent.addEventListener("input", update);
+        dairy_percent.addEventListener("input", update);
+        nut_percent.addEventListener("input", update);
+        snack_percent.addEventListener("input", update);
+        grain_percent.addEventListener("input", update);
+        cal_per_day.addEventListener("input", update);
         </script>
     </body>
 </html>
