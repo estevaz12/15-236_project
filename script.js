@@ -113,3 +113,87 @@ function wasteEms(recycled, dollars) { // how much recycled in TONS, need amount
   const savings = recycled * saveConst;
   return totalWasteEms - savings;
 }
+
+function drawBarChart(canvas, transport, house, food, waste) {
+
+    transport = transport / gramsPerTon
+    house = house / gramsPerTon
+    food = food / gramsPerTon
+    waste = waste / gramsPerTon
+
+    const width = canvas.width;
+    const height = canvas.height;
+    const leftMargin = 40;
+    const rightMargin = 40;
+    const topMargin = 60;
+    const botMargin = 50;
+    const graphWidth = width - (leftMargin + rightMargin);
+    const graphHeight = height - (topMargin + botMargin);
+    const ctx = canvas.getContext('2d');
+
+    const drawLine = function (x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    const drawBackground = function () {
+        ctx.fillStyle = "#453434";
+        ctx.fillRect(0, 0, width, height);
+    }
+
+    const drawAxis = function() {
+        ctx.strokeStyle = "#fcfcfc";
+        ctx.lineWidth = 0.8;
+        drawLine(leftMargin, topMargin, leftMargin, height - botMargin);
+        drawLine(leftMargin, height-botMargin, width - rightMargin, height - botMargin);
+    }
+
+    const drawTitles = function() {
+        let offset = 110;
+        ctx.fillStyle = "#fcfcfc";
+        ctx.font = '18px serif';
+        // Thanks to Bella for showing me how to make the y-axis label align properly
+        ctx.save()
+        ctx.translate(graphHeight * 1 / 13, graphWidth * 31 / 52);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText("C02 Emissions (Tons per year)", 0, 0);
+        ctx.restore();
+    }
+
+    const drawBars = function() {
+        const maxCost = transport + house + food + waste;
+        const horizBuffer = 60;
+        const spaceX = (graphWidth - (2 * horizBuffer)) / (4-1);
+        const rectWidth = 40;
+        ctx.strokeStyle = "#ffffff";
+        ctx.fillStyle = "#ffffff";
+        let curX = 0;
+        let rectHeight = 0;
+
+        curX = horizBuffer;
+        rectHeight = (transport / maxCost) * graphHeight;
+        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
+
+        curX = horizBuffer + spaceX;
+        rectHeight = (house / maxCost) * graphHeight;
+        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
+
+        curX = horizBuffer + (2 * spaceX);
+        rectHeight = (food / maxCost) * graphHeight;
+        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
+
+        curX = horizBuffer + (3 * spaceX);
+        rectHeight = (waste / maxCost) * graphHeight;
+        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
+
+    }
+
+
+    drawBackground();
+    drawAxis();
+    drawTitles();
+    drawBars();
+}

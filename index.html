@@ -50,12 +50,7 @@
             <!-- First model goes here -->
             <div class="row">
                 <div class="col-12">
-                    <h2 id="transportOutput">Transport</h2>
-                    <h2 id="houseOutput">House</h2>
-                    <h2 id="foodOutput">Food</h2>
-                    <h2 id="wasteOutput">Waste</h2>
-                    <h2 id="totalOutput">Total</h2>
-                    <canvas id="firstModel"></canvas>
+                    <canvas id="firstModel" width="600" height="400"></canvas>
                 </div>
             </div>
 
@@ -302,11 +297,11 @@
         const trans_trainMiles = document.getElementById("transTrain");
         const trans_carMiles = document.getElementById("transCarMiles");
         const trans_carEfficiency = document.getElementById("transCarEff");
-        const trans_out = document.getElementById("transportOutput");
+        // const trans_out = document.getElementById("transportOutput");
 
         const house_state = document.getElementById("houseState");
         const house_bill = document.getElementById("houseBill");
-        const house_out = document.getElementById("houseOutput");
+        // const house_out = document.getElementById("houseOutput");
 
         const fruitveg_percent = document.getElementById("vegetableFruitPercent");
         const meat_percent = document.getElementById("meatPercent");
@@ -315,13 +310,13 @@
         const snack_percent = document.getElementById("snackPercent");
         const grain_percent = document.getElementById("grainPercent");
         const cal_per_day = document.getElementById("caloriesPerDay");
-        const food_out = document.getElementById("foodOutput");
+        // const food_out = document.getElementById("foodOutput");
 
         const waste_recycle = document.getElementById("wasteRecycle");
         const waste_bill = document.getElementById("wasteBill");
-        const waste_out = document.getElementById("wasteOutput");
+        // const waste_out = document.getElementById("wasteOutput");
 
-        const total_out = document.getElementById("totalOutput");
+        // const total_out = document.getElementById("totalOutput");
 
         function update() { // big
           let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
@@ -331,11 +326,8 @@
                               parseInt(nut_percent.value), parseInt(snack_percent.value), parseInt(grain_percent.value),
                               parseInt(cal_per_day.value));
           let waste = wasteEms(parseInt(waste_recycle.value), parseInt(waste_bill.value) * 12.0);
-          trans_out.innerText = "Transport: " + transport;
-          house_out.innerText = "House: " + house;
-          food_out.innerText = "Food: " + food;
-          waste_out.innerText = "Waste: " + waste;
-          total_out.innerText = "Total: " + (transport + house + food + waste);
+          let cnvs = document.getElementById("firstModel");
+          drawBarChart(cnvs, transport, house, food, waste);
         }
 
         update();
