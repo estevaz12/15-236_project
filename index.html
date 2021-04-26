@@ -50,7 +50,7 @@
             <!-- First model goes here -->
             <div class="row">
                 <div class="col-12">
-                    <h2 id="tempOutputNum">HEADER HERE</h2>
+                    <h2 id="transportOutput">Transport</h2>
                     <canvas id="firstModel"></canvas>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                             <h2 class="accordion-header" id="flush-headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                    Accordion Item #2
+                                    Household
                                 </button>
                             </h2>
                             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
@@ -198,18 +198,21 @@
         const trans_trainMiles = document.getElementById("transTrain");
         const trans_carMiles = document.getElementById("transCarMiles");
         const trans_carEfficiency = document.getElementById("transCarEff");
-        const outNum = document.getElementById("tempOutputNum");
+        const trans_out = document.getElementById("transportOutput");
 
         function update() { // big
           let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
             parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
-          let output = transport;
-          outNum.innerText = "Output Num: " + output;
-          console.log("Output Num: " + output);
+          trans_out.innerText = "Transport: " + transport;
+          console.log("Transport: " + transport);
         }
 
         update();
         trans_numFlights.addEventListener("input", update);
+        trans_busMiles.addEventListener("input", update);
+        trans_trainMiles.addEventListener("input", update);
+        trans_carMiles.addEventListener("input", update);
+        trans_carEfficiency.addEventListener("input", update);
         </script>
     </body>
 </html>
