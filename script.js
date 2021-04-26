@@ -1,4 +1,4 @@
-const gramsPerTon = 907185;
+const gramsPerTon = 1000000;
 const milesPerKm = 0.621371;
 const kmPerMile = (1 / milesPerKm);
 
@@ -149,6 +149,9 @@ function drawBarChart(canvas, transport, house, food, waste) {
         ctx.lineWidth = 0.8;
         drawLine(leftMargin, topMargin, leftMargin, height - botMargin);
         drawLine(leftMargin, height-botMargin, width - rightMargin, height - botMargin);
+        ctx.fillStyle = "#fcfcfc";
+        ctx.font = '18px serif';
+        ctx.fillText("" + Math.ceil(transport + house + food + waste), leftMargin - (width / 60), topMargin - (width / 60));
     }
 
     const drawTitles = function() {
@@ -170,27 +173,42 @@ function drawBarChart(canvas, transport, house, food, waste) {
         const rectWidth = 40;
         ctx.strokeStyle = "#ffffff";
         ctx.fillStyle = "#ffffff";
+        ctx.font = '18px serif';
         let curX = 0;
         let rectHeight = 0;
 
         curX = horizBuffer;
         rectHeight = (transport / maxCost) * graphHeight;
         ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
+        ctx.fillStyle = "#fcfcfc";
+        ctx.fillText("Transport", curX - (width / 39), height - botMargin + (height / 26));
+        ctx.fillText("" + (Math.round(transport * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
+        ctx.fillStyle = "#ffffff";
 
         curX = horizBuffer + spaceX;
         rectHeight = (house / maxCost) * graphHeight;
         ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
+        ctx.fillStyle = "#fcfcfc";
+        ctx.fillText("Household", curX - (width / 39), height - botMargin + (height / 26));
+        ctx.fillText("" + (Math.round(house * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
+        ctx.fillStyle = "#ffffff";
 
         curX = horizBuffer + (2 * spaceX);
         rectHeight = (food / maxCost) * graphHeight;
         ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
+        ctx.fillStyle = "#fcfcfc";
+        ctx.fillText("Food", curX, height - botMargin + (height / 26));
+        ctx.fillText("" + (Math.round(food * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
+        ctx.fillStyle = "#ffffff";
 
         curX = horizBuffer + (3 * spaceX);
         rectHeight = (waste / maxCost) * graphHeight;
         ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
-
+        ctx.fillStyle = "#fcfcfc";
+        ctx.fillText("Waste", curX, height - botMargin + (height / 26));
+        ctx.fillText("" + (Math.round(waste * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
+        ctx.fillStyle = "#ffffff";
     }
-
 
     drawBackground();
     drawAxis();

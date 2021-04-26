@@ -73,7 +73,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title"> How many flights do you take per year?</h5>
-                                                    <input type="number" min="0" max="150" value="4" step="1" id="transFlights">
+                                                    <input type="number" min="0" max="150" value="2" step="1" id="transFlights">
                                                 </div>
                                             </div>
                                         </div>
@@ -207,7 +207,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title"> How many calories do you roughly eat per day?</h5>
-                                                    <input type="number" min="0" max="150" value="2100" step="1" id="caloriesPerDay">
+                                                    <input type="number" min="0" max="150" value="1600" step="1" id="caloriesPerDay">
                                                 </div>
                                             </div>
                                         </div>
@@ -326,6 +326,7 @@
                               parseInt(nut_percent.value), parseInt(snack_percent.value), parseInt(grain_percent.value),
                               parseInt(cal_per_day.value));
           let waste = wasteEms(parseInt(waste_recycle.value), parseInt(waste_bill.value) * 12.0);
+          console.log("Total: " + (transport + house + food + waste));
           let cnvs = document.getElementById("firstModel");
           drawBarChart(cnvs, transport, house, food, waste);
         }
@@ -345,6 +346,8 @@
         snack_percent.addEventListener("input", update);
         grain_percent.addEventListener("input", update);
         cal_per_day.addEventListener("input", update);
+        waste_recycle.addEventListener("input", update);
+        waste_bill.addEventListener("input", update);
         </script>
     </body>
 </html>
