@@ -54,6 +54,7 @@
                     <h2 id="houseOutput">House</h2>
                     <h2 id="foodOutput">Food</h2>
                     <h2 id="wasteOutput">Waste</h2>
+                    <h2 id="totalOutput">Total</h2>
                     <canvas id="firstModel"></canvas>
                 </div>
             </div>
@@ -219,6 +220,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                    Waste
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                  <div class="row">
+                                      <div class="col-3">
+                                          <div class="card">
+                                              <div class="card-body">
+                                                  <h5 class="card-title">How much do you recycle? (tons/year)</h5>
+                                                  <input type="number" min="0" max="500" value="10" step="1" id="wasteRecycle">
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-3">
+                                          <div class="card">
+                                              <div class="card-body">
+                                                  <h5 class="card-title">What is your monthly water bill? (dollars)</h5>
+                                                  <input type="number" min="0" max="500" step="1" value = "70" id="wasteBill">
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -285,6 +317,12 @@
         const cal_per_day = document.getElementById("caloriesPerDay");
         const food_out = document.getElementById("foodOutput");
 
+        const waste_recycle = document.getElementById("wasteRecycle");
+        const waste_bill = document.getElementById("wasteBill");
+        const waste_out = document.getElementById("wasteOutput");
+
+        const total_out = document.getElementById("totalOutput");
+
         function update() { // big
           let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
             parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
@@ -292,9 +330,12 @@
           let food = calcFood(parseInt(fruitveg_percent.value), parseInt(meat_percent.value), parseInt(dairy_percent.value),
                               parseInt(nut_percent.value), parseInt(snack_percent.value), parseInt(grain_percent.value),
                               parseInt(cal_per_day.value));
+          let waste = wasteEms(parseInt(waste_recycle.value), parseInt(waste_bill.value) * 12.0);
           trans_out.innerText = "Transport: " + transport;
           house_out.innerText = "House: " + house;
           food_out.innerText = "Food: " + food;
+          waste_out.innerText = "Waste: " + waste;
+          total_out.innerText = "Total: " + (transport + house + food + waste);
         }
 
         update();

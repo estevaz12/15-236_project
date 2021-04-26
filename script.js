@@ -106,9 +106,9 @@ function indirectHouseEms(state) { //NOTE: a little inefficient
   return impacts[state];
 }
 
-function wasteEms(recycled, dollars) {
-  const emFactor = 4121;
-  const totalWasteEms = dollars * emFactor;
+function wasteEms(recycled, dollars) { // how much recycled in TONS, need amount spent on waste
+  const emFactor = 4121.0;
+  const totalWasteEms = dollars * emFactor; // amount spent on waste
   const saveConst = 1308.6; // kg/ton RECYCLED
   const savings = recycled * saveConst;
   return totalWasteEms - savings;
