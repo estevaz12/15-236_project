@@ -334,8 +334,10 @@
           console.log("Total: " + (transport + house + food + waste));
           let cnvs = document.getElementById("firstModel");
           //https://www.tutorialrepublic.com/faq/how-to-detect-screen-resolution-with-javascript.php
-          cnvs.height = cnvs.height * window.devicePixelRatio;
-          cnvs.width = cnvs.width * window.devicePixelRatio;
+          if(cnvs.height == 400 && cnvs.width == 600) {
+            cnvs.height = cnvs.height * window.devicePixelRatio;
+            cnvs.width = cnvs.width * window.devicePixelRatio;
+          }
           console.log("width: " + cnvs.width + ", height: " + cnvs.height);
           drawBarChart(cnvs, transport, house, food, waste);
         }
