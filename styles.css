@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+.container-md {
+    max-width: 960px;
+}
+
 h2 {
     text-align: center;
 }
@@ -11,23 +15,28 @@ input {
 }
 
 .navbar {
- background-color: #04143a!important;
+ background-color: #061946!important;
 }
 
 .row {
     margin-bottom: 25px;
 }
 
-.accordion-row, .effects-row {
+.effects-row {
     margin-bottom: 100px;
 }
 
-.card {
+/* .card {
     margin-bottom: 15px;
-}
+} */
 
 .card img {
     max-width: 100%;
+    object-fit: cover; 
+}
+
+.card .row {
+    margin-bottom: 0;
 }
 
 .card-body .form-label.end {
@@ -42,8 +51,12 @@ input {
     font-size: 1.125em;
 }
 
+.can-do-row .col-3 {
+    display: flex;
+}
+
 .form-range {
-    width: 80%;
+    width: 75%;
     float: left;
 }
 
@@ -51,21 +64,34 @@ input {
     text-align: center;
 }
 
-#header-img {
+/* #header-img {
     max-height: 650px;
     width: 100%;
     object-fit: cover;
     position: relative;
     filter: brightness(75%);
     margin-bottom: 50px;
-}
+} */
 
 #header-text {
     position: absolute;
     top: 80%;
-    left: 8.5%;
+    left: 18%;
     z-index: 1;
     color: #fff;
+}
+
+#banner {
+    background-image: url('imgs/turbines.jpg');
+
+    min-height: 650px;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    margin-bottom: 50px;
 }
 
 #intro {

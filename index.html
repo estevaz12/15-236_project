@@ -18,10 +18,7 @@
     <body>
         <header>
             <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24">
-                    </a>
+                <div class="container-md">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -46,11 +43,11 @@
             </nav>
             <div id="banner">
                 <h1 id="header-text">What is your Carbon Footprint?</h1>
-                <img src="imgs/turbines.jpg" class="img-fluid" alt="wind-turbines" id="header-img">
+                <!-- <img src="imgs/turbines.jpg" class="img-fluid" alt="wind-turbines" id="header-img"> -->
             </div>
         </header>
 
-        <div class="container" id="content">
+        <div class="container-md" id="content">
 
             <div class="row" id='intro'>
                 <div class="col-12">
@@ -80,7 +77,7 @@
                     </div>
                 </div>
     
-                <div class="row">
+                <div class="row g-2 gy-2">
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
@@ -144,7 +141,7 @@
 
                 
 
-                <div class="row">
+                <div class="row g-2 gy-2">
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
@@ -194,9 +191,20 @@
             <div class="row">
                 <div class="row">
                     <h2>Food</h2>
+                    <p>
+                        The amounts of greenhouse gases emissions vary from food to food, with animal products like beef at the higher end of
+                        the scale, and plants like lentils at the low end. But it’s a complicated picture, and the carbon footprint of one type
+                        of food can be different depending on how and where it’s produced.
+
+                        <br><br>
+
+                        Fruits and vegetables, on the whole, have a lower carbon footprint to animal products. Because they have a lower carbon
+                        footprint in total than foods like beef and other meat products, transport plays a
+                        bigger role in the overall carbon footprint plant-based foods.
+                    </p>
                 </div>
 
-                <div class="row">
+                <div class="row g-2 gy-2">
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
@@ -210,6 +218,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"> What percent of your diet is grains?</h5>
+                                <p class="card-text"></p>
                                 <input type="number" min="0" max="100" value="20" step="1" id="grainPercent">
                                 <input type="range" class="form-range" min="0" max="100" value='20' id="grainR">
                             </div>
@@ -284,8 +293,69 @@
                             <div class="col-9">
                                 <div class="card-body">
                                     <h5 class="card-title">Public Transport</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                                        content. This content is a little bit longer.</p>
+                                    <p class="card-text">
+                                        Fly often? Taking one fewer long round-trip flight could shrink your personal carbon footprint significantly. Think
+                                        about it this way: If you use public transportation often, and fly home to visit family just occasionally, your carbon
+                                        footprint might still be relatively sustainable, but if you drive and fly a lot, your emissions will be higher.
+                                    </p>
+                                    <p class="card-text">
+                                        Going carless for a year could save about 2.6 tons of carbon dioxide, according to 2017 study from researchers at Lund
+                                        University and the University of British Columbia — that’s a little more than a roundtrip transatlantic flight. How can
+                                        you stop using a car? <strong>Try taking a train, bus or better yet, ride a bike.</strong> 
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Source: New York Times</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-3">
+                                <img src="imgs/housing-waste.jpg" alt="recycling bins">
+                            </div>
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">Household & Waste</h5>
+                                    <p class="card-text">
+                                        In the average American home, 25 percent of energy is used to heat spaces, 13 percent is used to heat water, 11 percent
+                                        is used for cooling and the remainder is spent on appliances, according to estimates from the Natural Resources Defense
+                                        Council. Making even small changes to these can make a big difference: <strong>turn down the heat, turn down your water heater,
+                                        turn off lights and appliances, replace lights, choose renewables, replace old appliances,</strong> and more.
+                                    </p>
+                                    <p class="card-text">
+                                        Americans generate about roughly 258 million tons of trash a year, 169 million tons of which ends up in landfills and
+                                        incinerators, according to a 2014 report from the E.P.A. That year, American’s recycled and composted 89 million tons of
+                                        municipal solid waste — this saved the same amount of energy as generated by 25 million homes. But much of the waste
+                                        that can be recycled still ends up in landfills.
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Source: New York Times</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-3">
+                                <img src="imgs/food.jpg" alt="recycling bins">
+                            </div>
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">Food</h5>
+                                    <p class="card-text">
+                                        While food systems are complicated, and research is still evolving on what the most environmentally-friendly diet is,
+                                        experts mostly agree that <strong>cutting down on meat, and red meat in particular, is a better choice for the environment.</strong> This
+                                        is because the production of red meat uses a lot of feed, water and land. Cows themselves also give off methane
+                                        emissions (a harmful greenhouse gas).
+                                    </p>
+                                    <p class="card-text">
+                                        Overall, <strong>eating low down the food chain as often as you can</strong> is a probably a good way to reduce your carbon footprint and
+                                        stay healthy, say experts. That means <strong>filling your plate with vegetables, fruits, grains and beans.</strong> For meat-lovers,
+                                        even <strong>swapping carbon-intensive meats like beef and lamb with chicken</strong> can make a difference. Better still, <strong>swap a few
+                                        meals per-week to vegan or vegetarian.</strong>
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Source: New York Times</small></p>
                                 </div>
                             </div>
                         </div>
@@ -303,6 +373,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+            integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+            async></script>
         <script src="script.js" type="text/javascript"></script>
         <script>
             let flightsR = document.getElementById('transFlightsR');
