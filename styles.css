@@ -2,36 +2,12 @@
     box-sizing: border-box;
 }
 
-.card img {
-    max-width: 100%;
-}
-
-.card-body .form-label.end {
-    float: right;
-}
-
-.can-do-row .card {
-    padding-left: 0;
-}
-
-#effects {
+h2 {
     text-align: center;
 }
 
-#header-img {
-    max-height: 650px;
-    width: 100%;
-    object-fit: cover;
-    position: relative;
-    filter: brightness(75%);
-}
-
-#header-text {
-    position: absolute;
-    top: 75%;
-    left: 10%;
-    z-index: 1;
-    color: #fff;
+input {
+    float: right;
 }
 
 .navbar {
@@ -44,4 +20,59 @@
 
 .accordion-row, .effects-row {
     margin-bottom: 100px;
+}
+
+.card {
+    margin-bottom: 15px;
+}
+
+.card img {
+    max-width: 100%;
+}
+
+.card-body .form-label.end {
+    float: right;
+}
+
+.can-do-row .card {
+    padding-left: 0;
+}
+
+.card-text p {
+    font-size: 1.125em;
+}
+
+.form-range {
+    width: 80%;
+    float: left;
+}
+
+#effects {
+    text-align: center;
+}
+
+#header-img {
+    max-height: 650px;
+    width: 100%;
+    object-fit: cover;
+    position: relative;
+    filter: brightness(75%);
+    margin-bottom: 50px;
+}
+
+#header-text {
+    position: absolute;
+    top: 80%;
+    left: 8.5%;
+    z-index: 1;
+    color: #fff;
+}
+
+#intro {
+    margin-bottom: 50px;
+    font-size: 1.125rem;
+}
+
+#model-row {
+    text-align: center;
 }

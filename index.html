@@ -52,10 +52,86 @@
 
         <div class="container" id="content">
 
-            <!-- First model goes here -->
+            <div class="row" id='intro'>
+                <div class="col-12">
+                    <p>
+                        Carbon footprint is the overall amount of greenhouse gas emissions, consisting primarily of carbon dioxide, associated
+                        with an organization, event or production. It is one of the most common measures of the effect of an individual,
+                        community, industry, or country on the environment. An increase in greenhouse gas emissions, and therefore in carbon
+                        footprint, is the primary event associated with climate change that has led to global warming.
+
+                        <br><br>
+
+                        Climate change is affecting the environment, wildlife, human health, and even economies. Scroll through our page to 
+                        see how much CO2 do your activities produces and what you can do about it.
+                    </p>
+                </div>
+            </div>
+
             <div class="row">
+                <h2>Public Transport</h2>
+            </div>
+
+            <!-- First model goes here -->
+            <div class="row" id="model-row">
                 <div class="col-12">
                     <canvas id="firstModel" width="600" height="400"></canvas>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">How many flights do you take per year?</h5>
+                            <p class="card-text">Around 2.4% of global CO2 emissions come from aviation. Together with other gases and the water vapour trails produced
+                            by aircraft, the industry is responsible for around 5% of global warming.</p>
+                            <input type="number" min="0" max="150" value="2" step="1" id="transFlights">
+                            <input type="range" class="form-range" min="0" max="150" value='2' id="transFlightsR">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">How many miles do you travel a day by bus?</h5>
+                            <p class="card-text">Moving a passenger one mile in an auto uses less energy, and produces less emissions, per passenger-mile (one person
+                            traveling one mile) than carrying that person one mile in an urban transit bus.</p>
+                            <input type="number" min="0" max="150" value="10" step="1" id="transBus">
+                            <input type="range" class="form-range" min="0" max="150" value='10' id="transBusR">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">How many miles do you travel a day by train?</h5>
+                            <p class="card-text">Rail transportation emits about 0.2 pounds of greenhouse gases per passenger mile.</p>
+                            <input type="number" min="0" max="150" value="10" step="1" id="transTrain">
+                            <input type="range" class="form-range" min="0" max="150" value='10' id="transTrainR">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">How many miles do you travel a day by car?</h5>
+                            <p class="card-text">A typical passenger vehicle emits about 4.6 metric tons of carbon dioxide per year.</p>
+                            <input type="number" min="0" max="150" value="45" step="1" id="transCarMiles">
+                            <input type="range" class="form-range" min="0" max="150" value='45' id="transCarMilesR">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">How many miles per gallon does you car get?</h5>
+                            <p class="card-text">A vehicle's emissions can vary depending on the
+                            vehicle’s fuel, fuel economy, and the number of miles driven per year.</p>
+                            <input type="number" min="0" max="150" value="25" step="1" id="transCarEff">
+                            <input type="range" class="form-range" min="0" max="150" value='25' id="transCarEffR">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -63,61 +139,6 @@
             <div class="row accordion-row">
                 <div class="col-12">
                     <div class="accordion accordion-flush" id="accordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                    Public Transportation
-                                </button>
-                            </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"> How many flights do you take per year?</h5>
-                                                    <input type="number" min="0" max="150" value="2" step="1" id="transFlights">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"> How many miles do you travel a day by bus?</h5>
-                                                    <input type="number" min="0" max="150" value="10" step="1" id="transBus">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"> How many miles do you travel a day by train?</h5>
-                                                    <input type="number" min="0" max="1000" value="10" step="1" id="transTrain">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">How many miles do you travel a day by car?</h5>
-                                                    <input type="number" min="0" max="700" value="45" step="1" id="transCarMiles">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">How many miles per a gallon does you car get?</h5>
-                                                    <input type="number" min="0" max="150" value="25" step="1" id="transCarEff">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -297,31 +318,38 @@
             crossorigin="anonymous"></script>
         <script src="script.js" type="text/javascript"></script>
         <script>
-        const trans_numFlights = document.getElementById("transFlights");
-        const trans_busMiles = document.getElementById("transBus");
-        const trans_trainMiles = document.getElementById("transTrain");
-        const trans_carMiles = document.getElementById("transCarMiles");
-        const trans_carEfficiency = document.getElementById("transCarEff");
-        // const trans_out = document.getElementById("transportOutput");
+        let flightsR = document.getElementById('transFlightsR');
+        let busR = document.getElementById('transBusR');
+        let trainR = document.getElementById('transTrainR');
+        let carMilesR = document.getElementById('transCarMilesR');
+        let carEffR = document.getElementById('transCarEffR');
 
-        const house_state = document.getElementById("houseState");
-        const house_bill = document.getElementById("houseBill");
-        // const house_out = document.getElementById("houseOutput");
+        let trans_numFlights = document.getElementById("transFlights");
+        let trans_busMiles = document.getElementById("transBus");
+        let trans_trainMiles = document.getElementById("transTrain");
+        let trans_carMiles = document.getElementById("transCarMiles");
+        let trans_carEfficiency = document.getElementById("transCarEff");
+        // let trans_out = document.getElementById("transportOutput");
 
-        const fruitveg_percent = document.getElementById("vegetableFruitPercent");
-        const meat_percent = document.getElementById("meatPercent");
-        const dairy_percent = document.getElementById("dairyPercent");
-        const nut_percent = document.getElementById("nutsPercent");
-        const snack_percent = document.getElementById("snackPercent");
-        const grain_percent = document.getElementById("grainPercent");
-        const cal_per_day = document.getElementById("caloriesPerDay");
-        // const food_out = document.getElementById("foodOutput");
 
-        const waste_recycle = document.getElementById("wasteRecycle");
-        const waste_bill = document.getElementById("wasteBill");
-        // const waste_out = document.getElementById("wasteOutput");
+        let house_state = document.getElementById("houseState");
+        let house_bill = document.getElementById("houseBill");
+        // let house_out = document.getElementById("houseOutput");
 
-        // const total_out = document.getElementById("totalOutput");
+        let fruitveg_percent = document.getElementById("vegetableFruitPercent");
+        let meat_percent = document.getElementById("meatPercent");
+        let dairy_percent = document.getElementById("dairyPercent");
+        let nut_percent = document.getElementById("nutsPercent");
+        let snack_percent = document.getElementById("snackPercent");
+        let grain_percent = document.getElementById("grainPercent");
+        let cal_per_day = document.getElementById("caloriesPerDay");
+        // let food_out = document.getElementById("foodOutput");
+
+        let waste_recycle = document.getElementById("wasteRecycle");
+        let waste_bill = document.getElementById("wasteBill");
+        // let waste_out = document.getElementById("wasteOutput");
+
+        // let total_out = document.getElementById("totalOutput");
 
         function update() { // big
           let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
@@ -341,6 +369,22 @@
           console.log("width: " + cnvs.width + ", height: " + cnvs.height);
           drawBarChart(cnvs, transport, house, food, waste);
         }
+
+        function updateInput(){
+            trans_numFlights.value = flightsR.value;
+            trans_busMiles.value = busR.value;
+            trans_trainMiles.value = trainR.value;
+            trans_carMiles.value = carMilesR.value;
+            trans_carEfficiency.value = carEffR.value;
+            update();
+        }
+
+        updateInput();
+        flightsR.addEventListener("input", updateInput);
+        busR.addEventListener("input", updateInput);
+        trainR.addEventListener("input", updateInput);
+        carMilesR.addEventListener("input", updateInput);
+        carEffR.addEventListener("input", updateInput);
 
         update();
         trans_numFlights.addEventListener("input", update);
