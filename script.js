@@ -1,6 +1,28 @@
 const gramsPerTon = 1000000;
 const milesPerKm = 0.621371;
 const kmPerMile = (1 / milesPerKm);
+const maxEmissions = 20.0; // Max Emissions in Tons per Year used for all graphs
+const foodColorMap = {
+    "Meat" : "#810707",
+    "Nut" : "#dfbc23",
+    "Dairy" : "rgba(56,157,252,0.74)",
+    "Grain" : "#a48f11",
+    "Snack" : "#c35e5e",
+    "Vegetable" : "#54982b"
+}
+
+const transportColorMap = {
+    "Flight" : "#16c8e2",
+    "Bus" : "#27a586",
+    "Train" : "#726bdb",
+    "Car" : "#b31df0"
+}
+
+const houseAndWasteColorMap = {
+    "Waste" : "#b31faa",
+    "DirectHouse" : "rgba(220,77,58,0.94)",
+    "IndirectHouse" : "#a5d37f"
+}
 
 /* Based on Jones and Kammen at
    http://carbon-calc.erg.berkeley.edu/carbon_calc.bak/ltcalc/data_and_calculations.pdf,
@@ -30,15 +52,20 @@ function calcFood(vegetableFruitPercent, grainPercent, nutsPercent,
     let grainCaloriesPerDay = (grainPercent / totalPercent) * caloriesPerDay;
     let nutsCaloriesPerDay = (nutsPercent / totalPercent) * caloriesPerDay;
     let snackCaloriesPerDay = (snackPercent / totalPercent) * caloriesPerDay;
-    let c02GramsPerDay = 0;
-    c02GramsPerDay += meatCaloriesPerDay * 4.52
-    c02GramsPerDay += nutsCaloriesPerDay * 7.39
-    c02GramsPerDay += dairyCaloriesPerDay * 4.66;
-    c02GramsPerDay += grainCaloriesPerDay * 1.47;
-    c02GramsPerDay += vegetableFruitCaloriesPerDay * 3.03;
-    c02GramsPerDay += snackCaloriesPerDay * 3.73;
-    let c02GramsPerYear = c02GramsPerDay * 365;
-    return c02GramsPerYear;
+    let meatTonsPerYear = (meatCaloriesPerDay * 4.52 * 365) / gramsPerTon;
+    let nutTonsPerYear = (nutsCaloriesPerDay * 7.39 * 365) / gramsPerTon;
+    let dairyTonsPerYear = (dairyCaloriesPerDay * 4.66 * 365) / gramsPerTon;
+    let grainTonsPerYear = (grainCaloriesPerDay * 1.47 * 365) / gramsPerTon;
+    let vegetableTonsPerYear = (vegetableFruitCaloriesPerDay * 3.03 * 365) / gramsPerTon;
+    let snackTonsPerYear = (snackCaloriesPerDay * 3.73 * 365) / gramsPerTon;
+    let result = {};
+    result["Meat"] = meatTonsPerYear;
+    result["Nut"] = nutTonsPerYear;
+    result["Dairy"] = dairyTonsPerYear;
+    result["Grain"] = grainTonsPerYear;
+    result["Snack"] = snackTonsPerYear;
+    result["Vegetable"] = vegetableTonsPerYear;
+    return result;
 }
 
 /* Based on https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/904215/2019-ghg-conversion-factors-methodology-v01-02.pdf
@@ -50,17 +77,20 @@ function calcFood(vegetableFruitPercent, grainPercent, nutsPercent,
    we know that 8,887 grams CO2 emitted / gallon driven
  */
 function calcTransportationCost(flightsPerYear, busMilesPerDay,
-                                trainMilesPerDay, carMilesPerGallon,
-                                carMilesPerDay) {
-    let c02GramsPerYear = 0;
-    let averageFlightDistanceMiles = 6000;
-    c02GramsPerYear += flightsPerYear * averageFlightDistanceMiles * kmPerMile * 94.9;
-    c02GramsPerYear += ((busMilesPerDay * 365) / milesPerKm) * 103.91;
-    c02GramsPerYear += ((trainMilesPerDay * 365) / milesPerKm) * 34.8;
-    c02GramsPerYear += ((carMilesPerDay * 365) / carMilesPerGallon) * 8887;
-    return c02GramsPerYear;
+                                trainMilesPerDay, carMilesPerDay,
+                                carMilesPerGallon) {
+    let averageFlightDistanceMiles = 6000; // 6000 is based on the personal experience of the author
+    let flightTonsPerYear = (flightsPerYear * averageFlightDistanceMiles * kmPerMile * 94.9) / gramsPerTon;
+    let busTonsPerYear = (((busMilesPerDay * 365) / milesPerKm) * 103.91) / gramsPerTon;
+    let trainTonsPerYear = (((trainMilesPerDay * 365) / milesPerKm) * 34.8) / gramsPerTon;
+    let carTonsPerYear = (((carMilesPerDay * 365) / carMilesPerGallon) * 8887) / gramsPerTon;
+    let result = {};
+    result["Flight"] = flightTonsPerYear;
+    result["Bus"] = busTonsPerYear;
+    result["Train"] = trainTonsPerYear;
+    result["Car"] = carTonsPerYear;
+    return result;
 }
-
 
 function directHouseEms(dollars) {
   const emFactor = 682; // g/$
@@ -114,17 +144,106 @@ function wasteEms(recycled, dollars) { // how much recycled in TONS, need amount
   return totalWasteEms - savings;
 }
 
-function drawBarChart(canvas, transport, house, food, waste) {
+function calcHouseAndWaste(house1, house2, waste1, waste2) {
+    let waste = wasteEms(waste1, waste2);
+    let directHouse = directHouseEms(house1);
+    let indirectHouse = indirectHouseEms(house2);
+    let result = {};
+    result["Waste"] = waste / gramsPerTon;
+    result["DirectHouse"] = directHouse / gramsPerTon;
+    result["IndirectHouse"] = indirectHouse / gramsPerTon;
+    return result;
+}
 
-    transport = transport / gramsPerTon
-    house = house / gramsPerTon
-    food = food / gramsPerTon
-    waste = waste / gramsPerTon
+function drawTransport(canvas, transportArray) {
+    let startX = 0;
+    let startY = (canvas.height / 2) - 10;
+    let rectHeight = 140;
+    let maxWidth = canvas.width - (2 * startX);
+    let maxValue = maxEmissions;
+    drawHorizBar(canvas, transportArray, transportColorMap, startX, startY, rectHeight, maxWidth, maxValue);
+    drawLegend(canvas, transportColorMap);
+    return;
+}
+
+function drawHouseAndWaste(canvas, houseAndWasteArray) {
+    let startX = 0;
+    let startY = (canvas.height / 2) - 10;
+    let rectHeight = 140;
+    let maxWidth = canvas.width - (2 * startX);
+    let maxValue = maxEmissions;
+    drawHorizBar(canvas, houseAndWasteArray, houseAndWasteColorMap, startX, startY, rectHeight, maxWidth, maxValue);
+    drawLegend(canvas, houseAndWasteColorMap);
+    return;
+}
+
+function drawFood(canvas, foodArray) {
+    let startX = 0;
+    let startY = (canvas.height / 2) - 10;
+    let rectHeight = 140;
+    let maxWidth = canvas.width - (2 * startX);
+    let maxValue = maxEmissions;
+    drawHorizBar(canvas, foodArray, foodColorMap, startX, startY, rectHeight, maxWidth, maxValue);
+    drawLegend(canvas, foodColorMap);
+    return;
+}
+
+function drawHorizBar(canvas, values, colors, startX, startY, rectHeight, maxWidth, maxValue) {
+    let cxt = canvas.getContext('2d');
+    let curX = startX;
+    for (let key in values) {
+        let emissionAmount = values[key];
+        let color = colors[key];
+        let rectWidth = (emissionAmount * maxWidth) / maxValue;
+        cxt.fillStyle = color;
+        cxt.fillRect(curX, startY, rectWidth, rectHeight);
+        curX += rectWidth;
+    }
+    cxt.fillStyle = "#ffffff";
+    cxt.fillRect(curX, startY, maxWidth - curX, rectHeight);
+}
+
+function sumArray(arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+function sumValues(dict) {
+    let sum = 0;
+    for (let key in dict) {
+        sum += dict[key];
+    }
+    return sum;
+}
+
+function drawVertBar(canvas, values, colors, startX, startY, rectWidth, maxHeight, maxValue) {
+    let cxt = canvas.getContext('2d');
+    cxt.fillStyle = "#ffffff";
+    cxt.fillRect(startX, startY - maxHeight, rectWidth, maxHeight);
+    let curY = startY;
+    for (let key in values) {
+        let emissionAmount = values[key];
+        let color = colors[key];
+        let rectHeight = (emissionAmount * maxHeight) / maxValue;
+        cxt.fillStyle = color;
+        cxt.fillRect(startX, curY - rectHeight, rectWidth, rectHeight);
+        curY -= rectHeight;
+    }
+}
+
+function drawLegend(canvas, colorMap) {
+    return;
+}
+
+function drawBarChart(canvas, transportArray, houseAndWasteArray, foodArray) {
 
     const width = canvas.width;
     const height = canvas.height;
-    const leftMargin = 40;
-    const rightMargin = 40;
+    const leftMargin = 30;
+    const rightMargin = 176;
     const topMargin = 60;
     const botMargin = 50;
     const graphWidth = width - (leftMargin + rightMargin);
@@ -140,74 +259,62 @@ function drawBarChart(canvas, transport, house, food, waste) {
     }
 
     const drawBackground = function () {
-        ctx.fillStyle = "#453434";
+        ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, width, height);
     }
 
     const drawAxis = function() {
-        ctx.strokeStyle = "#fcfcfc";
+        ctx.strokeStyle = "#080808";
         ctx.lineWidth = 0.8;
         drawLine(leftMargin, topMargin, leftMargin, height - botMargin);
         drawLine(leftMargin, height-botMargin, width - rightMargin, height - botMargin);
-        ctx.fillStyle = "#fcfcfc";
-        ctx.font = '18px serif';
-        ctx.fillText("" + Math.ceil(transport + house + food + waste), leftMargin - (width / 60), topMargin - (width / 60));
+        ctx.fillStyle = "#080707";
+        ctx.font = '18px Arial';
+        ctx.fillText("" + Math.ceil(maxEmissions), leftMargin - (width / 60), topMargin - (width / 60));
     }
 
     const drawTitles = function() {
         let offset = 110;
-        ctx.fillStyle = "#fcfcfc";
-        ctx.font = '18px serif';
+        ctx.fillStyle = "#0a0707";
+        ctx.font = '18px Arial';
         // Thanks to Bella for showing me how to make the y-axis label align properly
         ctx.save()
-        ctx.translate(graphHeight * 1 / 13, graphWidth * 31 / 52);
+        ctx.translate(graphHeight * 0.5 / 13, graphWidth * 20 / 52);
         ctx.rotate(-Math.PI / 2);
         ctx.fillText("C02 Emissions (Tons per year)", 0, 0);
         ctx.restore();
     }
 
     const drawBars = function() {
-        const maxCost = transport + house + food + waste;
         const horizBuffer = 60;
-        const spaceX = (graphWidth - (2 * horizBuffer)) / (4-1);
-        const rectWidth = 40;
-        ctx.strokeStyle = "#ffffff";
-        ctx.fillStyle = "#ffffff";
-        ctx.font = '18px serif';
+        const spaceX = (graphWidth - (2 * horizBuffer)) / (3-1);
+        const rectWidth = 120;
+        ctx.strokeStyle = "#010101";
+        ctx.fillStyle = "#000000";
+        ctx.font = '18px Arial';
         let curX = 0;
         let rectHeight = 0;
 
-        curX = horizBuffer;
-        rectHeight = (transport / maxCost) * graphHeight;
-        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
-        ctx.fillStyle = "#fcfcfc";
-        ctx.fillText("Transport", curX - (width / 39), height - botMargin + (height / 26));
-        ctx.fillText("" + (Math.round(transport * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
-        ctx.fillStyle = "#ffffff";
+        curX = horizBuffer + leftMargin;
+        drawVertBar(canvas, transportArray, transportColorMap, curX, height - botMargin, rectWidth, graphHeight, maxEmissions)
+        ctx.fillStyle = "#030303";
+        ctx.fillText("Transport", curX - (width / 25), height - botMargin + (height / 26));
+        ctx.fillText("" + (Math.round(10 * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
+        ctx.fillStyle = "#000000";
 
-        curX = horizBuffer + spaceX;
-        rectHeight = (house / maxCost) * graphHeight;
-        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
-        ctx.fillStyle = "#fcfcfc";
-        ctx.fillText("Household", curX - (width / 39), height - botMargin + (height / 26));
-        ctx.fillText("" + (Math.round(house * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
-        ctx.fillStyle = "#ffffff";
+        curX += spaceX;
+        drawVertBar(canvas, houseAndWasteArray, houseAndWasteColorMap, curX, height - botMargin, rectWidth, graphHeight, maxEmissions);
+        ctx.fillStyle = "#000000";
+        ctx.fillText("Household", curX - (width / 25), height - botMargin + (height / 26));
+        ctx.fillText("" + (Math.round(11 * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
+        ctx.fillStyle = "#080707";
 
-        curX = horizBuffer + (2 * spaceX);
-        rectHeight = (food / maxCost) * graphHeight;
-        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
-        ctx.fillStyle = "#fcfcfc";
+        curX += spaceX;
+        drawVertBar(canvas, foodArray, foodColorMap, curX, height - botMargin, rectWidth, graphHeight, maxEmissions);
+        ctx.fillStyle = "#000000";
         ctx.fillText("Food", curX, height - botMargin + (height / 26));
-        ctx.fillText("" + (Math.round(food * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
-        ctx.fillStyle = "#ffffff";
-
-        curX = horizBuffer + (3 * spaceX);
-        rectHeight = (waste / maxCost) * graphHeight;
-        ctx.fillRect(curX, height - botMargin - rectHeight, rectWidth, rectHeight);
-        ctx.fillStyle = "#fcfcfc";
-        ctx.fillText("Waste", curX, height - botMargin + (height / 26));
-        ctx.fillText("" + (Math.round(waste * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
-        ctx.fillStyle = "#ffffff";
+        ctx.fillText("" + (Math.round(12 * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
+        ctx.fillStyle = "#070707";
     }
 
     drawBackground();

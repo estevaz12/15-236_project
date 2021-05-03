@@ -11,7 +11,7 @@
     </head>
     <style>
         canvas {
-          width: 600px;
+          width: 1000px;
           height: 400px;
         }
     </style>
@@ -105,7 +105,7 @@
                     <div class="model-row" id="model-row1">
                         <div class="col-12">
                             <br>
-                            <canvas id="firstModel" width="600" height="400"></canvas>
+                            <canvas id="firstModel" width="1000" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
                     <div class="model-row" id="model-row2">
                         <div class="col-12">
                             <br>
-                            <canvas id="secondModel" width="600" height="400"></canvas>
+                            <canvas id="secondModel" width="1000" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -257,7 +257,7 @@
                     <div class="model-row" id="model-row3">
                         <div class="col-12">
                             <br>
-                            <canvas id="thirdModel" width="600" height="400"></canvas>
+                            <canvas id="thirdModel" width="1000" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -268,10 +268,7 @@
                     <h2>Altogther now</h2>
                     <p>
                         Represent everything together.
-
                         <br><br>
-
-                        Represent everything together.
                     </p>
                 </div>
 
@@ -280,7 +277,7 @@
                     <div class="model-row" id="model-row4">
                         <div class="col-12">
                             <br>
-                            <canvas id="fourthModel" width="600" height="400"></canvas>
+                            <canvas id="fourthModel" width="1000" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -429,23 +426,31 @@
             // let total_out = document.getElementById("totalOutput");
 
             function update() { // big
-            let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
-                parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
-            let house = directHouseEms(parseInt(house_bill.value) * 12.0) + indirectHouseEms(house_state.value);
-            let food = calcFood(parseInt(fruitveg_percent.value), parseInt(meat_percent.value), parseInt(dairy_percent.value),
-                                parseInt(nut_percent.value), parseInt(snack_percent.value), parseInt(grain_percent.value),
-                                parseInt(cal_per_day.value));
-            let waste = wasteEms(parseInt(waste_recycle.value) * 365, parseInt(waste_bill.value) * 12.0);
-            console.log("Total: " + (transport + house + food + waste));
-            let cnvs = document.getElementById("fourthModel");
-            //https://www.tutorialrepublic.com/faq/how-to-detect-screen-resolution-with-javascript.php
-            if(cnvs.height == 400 && cnvs.width == 600) {
-                cnvs.height = cnvs.height * window.devicePixelRatio;
-                cnvs.width = cnvs.width * window.devicePixelRatio;
+                let transportArray = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
+                    parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
+                let transport = sumArray(transportArray);
+                let houseAndWasteArray = calcHouseAndWaste(parseInt(house_bill.value) * 12.0, house_state.value, parseInt(waste_recycle.value) * 365,
+                                                           parseInt(waste_bill.value) * 12.0);
+                let houseAndWaste = sumArray(houseAndWasteArray);
+                let foodArray = calcFood(parseInt(fruitveg_percent.value), parseInt(meat_percent.value), parseInt(dairy_percent.value),
+                    parseInt(nut_percent.value), parseInt(snack_percent.value), parseInt(grain_percent.value),
+                    parseInt(cal_per_day.value));
+                let food = sumArray(foodArray);
+                let cnvs = [document.getElementById("firstModel"), document.getElementById("secondModel"),
+                    document.getElementById("thirdModel"), document.getElementById("fourthModel")];
+                //https://www.tutorialrepublic.com/faq/how-to-detect-screen-resolution-with-javascript.php
+                if (cnvs[0].height == 400 && cnvs[0].width == 1000) {
+                    for (let i = 0; i < 4; i++) {
+                        cnvs[i].height = cnvs[i].height * window.devicePixelRatio;
+                        cnvs[i].width = cnvs[i].width * window.devicePixelRatio;
+                    }
+                }
+                drawTransport(cnvs[0], transportArray);
+                drawHouseAndWaste(cnvs[1], houseAndWasteArray);
+                drawFood(cnvs[2], foodArray);
+                drawBarChart(cnvs[3], transportArray, houseAndWasteArray, foodArray);
             }
-            console.log("width: " + cnvs.width + ", height: " + cnvs.height);
-            drawBarChart(cnvs, transport, house, food, waste);
-            }
+
 
             function updateInput(){
                 trans_numFlights.value = flightsR.value;
