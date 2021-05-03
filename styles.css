@@ -79,7 +79,7 @@ input {
 
 #header-text {
     position: absolute;
-    top: 80%;
+    top: 35%;
     left: 18%;
     z-index: 1;
     color: #fff;
@@ -88,7 +88,7 @@ input {
 #banner {
     background-image: url('imgs/turbines.jpg');
 
-    min-height: 650px;
+    min-height: 325px;
 
     background-attachment: fixed;
     background-position: center;
