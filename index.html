@@ -70,13 +70,6 @@
                     <h2>Public Transport</h2>
                 </div>
     
-                <!-- First model goes here -->
-                <div class="row" id="model-row">
-                    <div class="col-12">
-                        <canvas id="firstModel" width="600" height="400"></canvas>
-                    </div>
-                </div>
-    
                 <div class="row g-2 gy-2">
                     <div class="col-6">
                         <div class="card">
@@ -131,6 +124,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- First model goes here -->
+                    <div class="model-row" id="model-row1">
+                        <div class="col-12">
+                            <br>
+                            <canvas id="firstModel" width="600" height="400"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -182,6 +183,13 @@
                                 <input type="number" min="0" max="500" step="1" value="70" id="wasteBill">
                                 <input type="range" class="form-range" min="0" max="500" value='70' id="wasteBillR">
                             </div>
+                        </div>
+                    </div>
+                    <!-- Second model goes here -->
+                    <div class="model-row" id="model-row2">
+                        <div class="col-12">
+                            <br>
+                            <canvas id="secondModel" width="600" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -269,8 +277,41 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Second model goes here -->
+                    <div class="model-row" id="model-row3">
+                        <div class="col-12">
+                            <br>
+                            <canvas id="thirdModel" width="600" height="400"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="row">
+                    <h2>Altogther now</h2>
+                    <p>
+                        Represent everything together.
+
+                        <br><br>
+
+                        Represent everything together.
+                    </p>
+                </div>
+
+                <div class="row g-2 gy-2">
+                    <!-- Fourth model goes here -->
+                    <div class="model-row" id="model-row4">
+                        <div class="col-12">
+                            <br>
+                            <canvas id="fourthModel" width="600" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
 
             <!-- What are the effects -->
             <div class="row effects-row" id="effects">
@@ -430,7 +471,7 @@
                                 parseInt(cal_per_day.value));
             let waste = wasteEms(parseInt(waste_recycle.value), parseInt(waste_bill.value) * 12.0);
             console.log("Total: " + (transport + house + food + waste));
-            let cnvs = document.getElementById("firstModel");
+            let cnvs = document.getElementById("fourthModel");
             //https://www.tutorialrepublic.com/faq/how-to-detect-screen-resolution-with-javascript.php
             if(cnvs.height == 400 && cnvs.width == 600) {
                 cnvs.height = cnvs.height * window.devicePixelRatio;

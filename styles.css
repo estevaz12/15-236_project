@@ -60,6 +60,10 @@ input {
     float: left;
 }
 
+.model-row {
+    text-align: center;
+}
+
 #effects {
     text-align: center;
 }
@@ -97,8 +101,4 @@ input {
 #intro {
     margin-bottom: 50px;
     font-size: 1.125rem;
-}
-
-#model-row {
-    text-align: center;
 }
