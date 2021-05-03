@@ -59,7 +59,7 @@
 
                         <br><br>
 
-                        Climate change is affecting the environment, wildlife, human health, and even economies. Scroll through our page to 
+                        Climate change is affecting the environment, wildlife, human health, and even economies. Scroll through our page to
                         see how much CO2 do your activities produces and what you can do about it.
                     </p>
                 </div>
@@ -69,7 +69,7 @@
                 <div class="row">
                     <h2>Public Transport</h2>
                 </div>
-    
+
                 <div class="row g-2 gy-2">
                     <div class="col-6">
                         <div class="card">
@@ -140,7 +140,7 @@
                     <h2>Household & Waste</h2>
                 </div>
 
-                
+
 
                 <div class="row g-2 gy-2">
                     <div class="col-6">
@@ -155,9 +155,9 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">How much do you spend on electricity and natural gas per year?</h5>
+                            <h5 class="card-title">How much do you spend on electricity and natural gas each month? ($)</h5>
                                 <p class="card-text">Residential energy use accounts for roughly 20% of greenhouse gas (GHG) emissions in the United States.</p>
-                                <input type="number" min="0" max="500" value="10" step="1" id="houseBill">
+                                <input type="number" min="0" max="500" value="115" step="1" id="houseBill">
                                 <input type="range" class="form-range" min="0" max="500" value='10' id="houseBillR">
                             </div>
                         </div>
@@ -165,11 +165,11 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">How much do you recycle? (tons/year)</h5>
+                                <h5 class="card-title">How much do you recycle? (pounds/day)</h5>
                                 <p class="card-text">Recycling helps reduce greenhouse gas emissions by reducing energy consumption. Using recycled materials to make new
                                 products reduces the need for virgin materials. This avoids greenhouse gas emissions that would result from extracting
                                 or mining virgin materials.</p>
-                                <input type="number" min="0" max="500" value="10" step="1" id="wasteRecycle">
+                                <input type="number" min="0" max="500" value="1.2" step="0.1" id="wasteRecycle">
                                 <input type="range" class="form-range" min="0" max="500" value='10' id="wasteRecycleR">
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">What is your monthly water bill? (dollars)</h5>
+                                <h5 class="card-title">What is your monthly water bill? ($)</h5>
                                 <p class="card-text">The CO2 embedded in the nation's water represents 5% of all U.S. carbon emissions and is equivalent to the emissions of
                                 over 62 coal fired power plants.</p>
                                 <input type="number" min="0" max="500" step="1" value="70" id="wasteBill">
@@ -342,7 +342,7 @@
                                     <p class="card-text">
                                         Going carless for a year could save about 2.6 tons of carbon dioxide, according to 2017 study from researchers at Lund
                                         University and the University of British Columbia — that’s a little more than a roundtrip transatlantic flight. How can
-                                        you stop using a car? <strong>Try taking a train, bus or better yet, ride a bike.</strong> 
+                                        you stop using a car? <strong>Try taking a train, bus or better yet, ride a bike.</strong>
                                     </p>
                                     <p class="card-text"><small class="text-muted">Source: New York Times</small></p>
                                 </div>
@@ -465,11 +465,11 @@
             function update() { // big
             let transport = calcTransportationCost(parseInt(trans_numFlights.value), parseInt(trans_busMiles.value),
                 parseInt(trans_trainMiles.value), parseInt(trans_carMiles.value), parseInt(trans_carEfficiency.value));
-            let house = directHouseEms(parseInt(house_bill.value)) + indirectHouseEms(house_state.value);
+            let house = directHouseEms(parseInt(house_bill.value) * 12.0) + indirectHouseEms(house_state.value);
             let food = calcFood(parseInt(fruitveg_percent.value), parseInt(meat_percent.value), parseInt(dairy_percent.value),
                                 parseInt(nut_percent.value), parseInt(snack_percent.value), parseInt(grain_percent.value),
                                 parseInt(cal_per_day.value));
-            let waste = wasteEms(parseInt(waste_recycle.value), parseInt(waste_bill.value) * 12.0);
+            let waste = wasteEms(parseInt(waste_recycle.value) * 365, parseInt(waste_bill.value) * 12.0);
             console.log("Total: " + (transport + house + food + waste));
             let cnvs = document.getElementById("fourthModel");
             //https://www.tutorialrepublic.com/faq/how-to-detect-screen-resolution-with-javascript.php
