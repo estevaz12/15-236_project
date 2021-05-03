@@ -123,7 +123,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">What state do you live in?</h5>
-                                <p class="card-text">Energy and natural gas rates vary per state.</p>
+                                <p class="card-text">Energy and natural gas rates <a href="https://www.eia.gov/electricity/sales_revenue_price/pdf/table5_a.pdf">vary per state</a>.</p>
                                 <input type="text" value="Illinois" id="houseState">
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                         <div class="card">
                             <div class="card-body">
                             <h5 class="card-title">How much do you spend on electricity and natural gas each month? ($)</h5>
-                                <p class="card-text">Residential energy use accounts for roughly 20% of greenhouse gas (GHG) emissions in the United States.</p>
+                                <p class="card-text"><a href="https://www.epa.gov/egrid">Residential energy use</a> accounts for roughly 20% of greenhouse gas (GHG) emissions in the United States.</p>
                                 <input type="number" min="0" max="500" value="115" step="1" id="houseBill">
                                 <input type="range" class="form-range" min="0" max="500" value='115' id="houseBillR">
                             </div>
@@ -142,7 +142,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">How much do you recycle? (pounds/day)</h5>
-                                <p class="card-text">Recycling helps reduce greenhouse gas emissions by reducing energy consumption. Using recycled materials to make new
+                                <p class="card-text">Recycling <a href="https://doi.org/10.1016/j.resconrec.2015.10.026">helps reduce greenhouse gas emissions</a> by reducing energy consumption. Using recycled materials to make new
                                 products reduces the need for virgin materials. This avoids greenhouse gas emissions that would result from extracting
                                 or mining virgin materials.</p>
                                 <input type="number" min="0" max="500" value="1.2" step="0.1" id="wasteRecycle">
@@ -373,7 +373,17 @@
         </div>
 
         <footer>
-            <!-- to-do -->
+          <div style="margin: auto; width: 75%">
+            <h6>Additional Sources:</h6>
+            <ul>
+              <li>
+                <a href="https://doi.org/10.1021/es102221h">Quantifying Carbon Footprint Reduction Opportunities for U.S. Households and Communities</a>
+              </li>
+              <li>
+                <a href="https://www.nytimes.com/guides/year-of-living-better/how-to-reduce-your-carbon-footprint">How to Reduce Your Carbon Footprint</a>
+              </li>
+            </ul>
+          </div>
         </footer>
 
 
