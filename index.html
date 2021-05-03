@@ -53,6 +53,7 @@
                                 <h5 class="card-title">How many flights do you take per year?</h5>
                                 <p class="card-text">Around 2.4% of global CO2 emissions come from aviation. Together with other gases and the water vapour trails produced
                                 by aircraft, the industry is responsible for around 5% of global warming.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://www.bbc.com/future/article/20200218-climate-change-how-to-cut-your-carbon-emissions-when-flying">BBC</a></small></p>
                                 <input type="number" min="0" max="150" value="2" step="1" id="transFlights">
                                 <input type="range" class="form-range" min="0" max="150" value='2' id="transFlightsR">
                             </div>
@@ -64,6 +65,7 @@
                                 <h5 class="card-title">How many miles do you travel a day by bus?</h5>
                                 <p class="card-text">Moving a passenger one mile in an auto uses less energy, and produces less emissions, per passenger-mile (one person
                                 traveling one mile) than carrying that person one mile in an urban transit bus.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://reason.org/commentary/does-bus-transit-reduce-greenhouse/#:~:text=These%20fuel%20savings%20yield%20commensurate,bus%20emits%20only%2014%20pounds.">Reason Foundation</a></small></p>
                                 <input type="number" min="0" max="150" value="10" step="1" id="transBus">
                                 <input type="range" class="form-range" min="0" max="150" value='10' id="transBusR">
                             </div>
@@ -74,6 +76,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">How many miles do you travel a day by train?</h5>
                                 <p class="card-text">Rail transportation emits about 0.2 pounds of greenhouse gases per passenger mile.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://www.sightline.org/maps-and-graphics/climate-CO2byMode/">Sightline Institute</a></small></p>
                                 <input type="number" min="0" max="150" value="10" step="1" id="transTrain">
                                 <input type="range" class="form-range" min="0" max="150" value='10' id="transTrainR">
                             </div>
@@ -84,6 +87,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">How many miles do you travel a day by car?</h5>
                                 <p class="card-text">A typical passenger vehicle emits about 4.6 metric tons of carbon dioxide per year.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle#:~:text=typical%20passenger%20vehicle%3F-,A%20typical%20passenger%20vehicle%20emits%20about%204.6%20metric%20tons%20of,8%2C887%20grams%20of%20CO2.">EPA</a></small></p>
                                 <input type="number" min="0" max="150" value="45" step="1" id="transCarMiles">
                                 <input type="range" class="form-range" min="0" max="150" value='45' id="transCarMilesR">
                             </div>
@@ -95,6 +99,7 @@
                                 <h5 class="card-title">How many miles per gallon does you car get?</h5>
                                 <p class="card-text">A vehicle's emissions can vary depending on the
                                 vehicle’s fuel, fuel economy, and the number of miles driven per year.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle#:~:text=typical%20passenger%20vehicle%3F-,A%20typical%20passenger%20vehicle%20emits%20about%204.6%20metric%20tons%20of,8%2C887%20grams%20of%20CO2.">EPA</a></small></p>
                                 <input type="number" min="0" max="150" value="25" step="1" id="transCarEff">
                                 <input type="range" class="form-range" min="0" max="150" value='25' id="transCarEffR">
                             </div>
@@ -123,7 +128,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">What state do you live in?</h5>
-                                <p class="card-text">Energy and natural gas rates vary per state.</p>
+                                <p class="card-text">Energy and natural gas rates <a href="https://www.eia.gov/electricity/sales_revenue_price/pdf/table5_a.pdf">vary per state</a>.</p>
                                 <input type="text" value="Illinois" id="houseState">
                             </div>
                         </div>
@@ -132,7 +137,8 @@
                         <div class="card">
                             <div class="card-body">
                             <h5 class="card-title">How much do you spend on electricity and natural gas each month? ($)</h5>
-                                <p class="card-text">Residential energy use accounts for roughly 20% of greenhouse gas (GHG) emissions in the United States.</p>
+                                <p class="card-text">Residential <a href="https://www.epa.gov/egrid">energy use</a> accounts for roughly 20% of greenhouse gas (GHG) emissions in the United States.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://www.pnas.org/content/117/32/19122">Goldstein et al.</a></small></p>
                                 <input type="number" min="0" max="500" value="115" step="1" id="houseBill">
                                 <input type="range" class="form-range" min="0" max="500" value='115' id="houseBillR">
                             </div>
@@ -142,9 +148,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">How much do you recycle? (pounds/day)</h5>
-                                <p class="card-text">Recycling helps reduce greenhouse gas emissions by reducing energy consumption. Using recycled materials to make new
+                                <p class="card-text">Recycling <a href="https://doi.org/10.1016/j.resconrec.2015.10.026">helps reduce greenhouse gas emissions</a> by reducing energy consumption. Using recycled materials to make new
                                 products reduces the need for virgin materials. This avoids greenhouse gas emissions that would result from extracting
                                 or mining virgin materials.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://kingcounty.gov/depts/dnrp/solid-waste/programs/climate/climate-change-recycling.aspx#:~:text=Recycling%20helps%20reduce%20greenhouse%20gas,extracting%20or%20mining%20virgin%20materials.">King County</a></small></p>
                                 <input type="number" min="0" max="500" value="1.2" step="0.1" id="wasteRecycle">
                                 <input type="range" class="form-range" min="0" max="50" value='1.2' step="0.1" id="wasteRecycleR">
                             </div>
@@ -156,6 +163,7 @@
                                 <h5 class="card-title">What is your monthly water bill? ($)</h5>
                                 <p class="card-text">The CO2 embedded in the nation's water represents 5% of all U.S. carbon emissions and is equivalent to the emissions of
                                 over 62 coal fired power plants.</p>
+                                <p class="card-text"><small class="text-muted">Source: <a href="https://www.csu.edu/cerc/researchreports/documents/CarbonFootprintofWater-RiverNetwork-2009.pdf">The Carbon Footprint of Water</a></small></p>
                                 <input type="number" min="0" max="500" step="1" value="70" id="wasteBill">
                                 <input type="range" class="form-range" min="0" max="500" value='70' id="wasteBillR">
                             </div>
@@ -185,6 +193,13 @@
                         Fruits and vegetables, on the whole, have a lower carbon footprint to animal products. Because they have a lower carbon
                         footprint in total than foods like beef and other meat products, transport plays a
                         bigger role in the overall carbon footprint plant-based foods.
+                    </p>
+                    <p>Sources:
+                        <small class="text-muted">
+                            <a href="https://www.foodunfolded.com/article/do-you-know-the-carbon-footprint-of-these-common-foods#:~:text=Fruit%20and%20vegetables%20have%20lower%20carbon%20footprint&text=Because%20they%20have%20a%20lower,veg%20will%20mean%20lower%20emissions.">Food Unfolded</a>,
+                            <a href="https://www.greeneatz.com/foods-carbon-footprint.html">Green Eatz</a>,
+                            <a href="https://ourworldindata.org/food-choice-vs-eating-local">Our World in Data</a>
+                        </small>
                     </p>
                 </div>
 
@@ -265,7 +280,7 @@
 
             <div class="row">
                 <div class="row">
-                    <h2>Altogther now</h2>
+                    <h2>Altogether Now</h2>
                     <p>
                         Represent everything together.
                         <br><br>
@@ -307,7 +322,7 @@
                                         University and the University of British Columbia — that’s a little more than a roundtrip transatlantic flight. How can
                                         you stop using a car? <strong>Try taking a train, bus or better yet, ride a bike.</strong>
                                     </p>
-                                    <p class="card-text"><small class="text-muted">Source: New York Times</small></p>
+                                    <p class="card-text"><small class="text-muted">Source: <a href="https://www.nytimes.com/guides/year-of-living-better/how-to-reduce-your-carbon-footprint">New York Times</a></small></p>
                                 </div>
                             </div>
                         </div>
@@ -315,9 +330,6 @@
 
                     <div class="card mb-3">
                         <div class="row g-0">
-                            <div class="col-3">
-                                <img src="imgs/housing-waste.jpg" alt="recycling bins">
-                            </div>
                             <div class="col-9">
                                 <div class="card-body">
                                     <h5 class="card-title">Household & Waste</h5>
@@ -333,8 +345,11 @@
                                         municipal solid waste — this saved the same amount of energy as generated by 25 million homes. But much of the waste
                                         that can be recycled still ends up in landfills.
                                     </p>
-                                    <p class="card-text"><small class="text-muted">Source: New York Times</small></p>
+                                    <p class="card-text"><small class="text-muted">Source: <a href="https://www.nytimes.com/guides/year-of-living-better/how-to-reduce-your-carbon-footprint">New York Times</a></small></p>
                                 </div>
+                            </div>
+                            <div class="col-3">
+                                <img src="imgs/housing-waste.jpg" alt="recycling bins">
                             </div>
                         </div>
                     </div>
@@ -359,7 +374,7 @@
                                         even <strong>swapping carbon-intensive meats like beef and lamb with chicken</strong> can make a difference. Better still, <strong>swap a few
                                         meals per-week to vegan or vegetarian.</strong>
                                     </p>
-                                    <p class="card-text"><small class="text-muted">Source: New York Times</small></p>
+                                    <p class="card-text"><small class="text-muted">Source: <a href="https://www.nytimes.com/guides/year-of-living-better/how-to-reduce-your-carbon-footprint">New York Times</a></small></p>
                                 </div>
                             </div>
                         </div>
@@ -370,7 +385,17 @@
         </div>
 
         <footer>
-            <!-- to-do -->
+          <div style="margin: auto; width: 75%">
+            <h6>Additional Sources:</h6>
+            <ul>
+              <li>
+                <a href="https://doi.org/10.1021/es102221h">Quantifying Carbon Footprint Reduction Opportunities for U.S. Households and Communities</a>
+              </li>
+              <li>
+                <a href="https://www.nytimes.com/guides/year-of-living-better/how-to-reduce-your-carbon-footprint">How to Reduce Your Carbon Footprint</a>
+              </li>
+            </ul>
+          </div>
         </footer>
 
 
