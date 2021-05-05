@@ -309,19 +309,11 @@ function drawBarChart(canvas, transportArray, houseAndWasteArray, foodArray) {
     const graphHeight = height - (topMargin + botMargin);
     const ctx = canvas.getContext('2d');
 
-    const drawLine = function (x1, y1, x2, y2) {
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.closePath();
-        ctx.stroke();
-    }
-
     const drawAxis2 = function() {
         ctx.strokeStyle = "#080808";
         ctx.lineWidth = 0.8;
-        drawLine(leftMargin, topMargin, leftMargin, height - botMargin);
-        drawLine(leftMargin, height - botMargin, width - rightMargin, height - botMargin);
+        drawLine1(ctx, leftMargin, topMargin, leftMargin, height - botMargin);
+        drawLine1(ctx, leftMargin, height - botMargin, width - rightMargin, height - botMargin);
         ctx.fillStyle = "#080707";
         ctx.font = '18px Arial';
         ctx.fillText("" + maxEmissions.toFixed(1), leftMargin - (width / 60), topMargin - (width / 60));
