@@ -20,8 +20,8 @@ const transportColorMap = {
 
 const houseAndWasteColorMap = {
     "Waste" : "#b31faa",
-    "DirectHouse" : "rgba(220,77,58,0.94)",
-    "IndirectHouse" : "#a5d37f"
+    "Direct House" : "rgba(220,77,58,0.94)",
+    "Indirect House" : "#a5d37f"
 }
 
 /* Based on Jones and Kammen at
@@ -42,8 +42,8 @@ const houseAndWasteColorMap = {
         - 200 calories Fruits and Vegetables
         - 900 calories (Added plant based oils and sugars which go into the Snack category from above)
  */
-function calcFood(vegetableFruitPercent, grainPercent, nutsPercent,
-                  snackPercent, meatPercent, dairyPercent, caloriesPerDay) {
+function calcFood(vegetableFruitPercent, meatPercent, dairyPercent,
+                  nutsPercent, snackPercent, grainPercent, caloriesPerDay) {
     let totalPercent = vegetableFruitPercent + grainPercent + nutsPercent +
                        snackPercent + meatPercent + dairyPercent;
     let vegetableFruitCaloriesPerDay = (vegetableFruitPercent / totalPercent) * caloriesPerDay;
@@ -79,7 +79,7 @@ function calcFood(vegetableFruitPercent, grainPercent, nutsPercent,
 function calcTransportationCost(flightsPerYear, busMilesPerDay,
                                 trainMilesPerDay, carMilesPerDay,
                                 carMilesPerGallon) {
-    let averageFlightDistanceMiles = 6000; // 6000 is based on the personal experience of the author
+    let averageFlightDistanceMiles = 3000; // 3000 miles being the medium haul flight limit based on https://en.wikipedia.org/wiki/Flight_length
     let flightTonsPerYear = (flightsPerYear * averageFlightDistanceMiles * kmPerMile * 94.9) / gramsPerTon;
     let busTonsPerYear = (((busMilesPerDay * 365) / milesPerKm) * 103.91) / gramsPerTon;
     let trainTonsPerYear = (((trainMilesPerDay * 365) / milesPerKm) * 34.8) / gramsPerTon;
@@ -150,47 +150,69 @@ function calcHouseAndWaste(house1, house2, waste1, waste2) {
     let indirectHouse = indirectHouseEms(house2);
     let result = {};
     result["Waste"] = waste / gramsPerTon;
-    result["DirectHouse"] = directHouse / gramsPerTon;
-    result["IndirectHouse"] = indirectHouse / gramsPerTon;
+    result["Direct House"] = directHouse / gramsPerTon;
+    result["Indirect House"] = indirectHouse / gramsPerTon;
     return result;
 }
 
+let firstTimeTransport = true;
 function drawTransport(canvas, transportArray) {
     let startX = 0;
     let startY = (canvas.height / 2) - 10;
     let rectHeight = 140;
-    let maxWidth = canvas.width - (2 * startX);
+    let rightMargin = 40;
+    let maxWidth = canvas.width - rightMargin;
     let maxValue = maxEmissions;
     drawHorizBar(canvas, transportArray, transportColorMap, startX, startY, rectHeight, maxWidth, maxValue);
-    drawLegend(canvas, transportColorMap);
+    if (firstTimeTransport) {
+        drawAxis1(canvas, maxWidth);
+        drawLegend1(canvas, transportColorMap);
+        firstTimeTransport = false;
+    }
     return;
 }
 
+
+let firstTimeHouse = true;
 function drawHouseAndWaste(canvas, houseAndWasteArray) {
     let startX = 0;
     let startY = (canvas.height / 2) - 10;
     let rectHeight = 140;
-    let maxWidth = canvas.width - (2 * startX);
+    let rightMargin = 40;
+    let maxWidth = canvas.width - rightMargin;
     let maxValue = maxEmissions;
     drawHorizBar(canvas, houseAndWasteArray, houseAndWasteColorMap, startX, startY, rectHeight, maxWidth, maxValue);
-    drawLegend(canvas, houseAndWasteColorMap);
+    if (firstTimeHouse) {
+        drawAxis1(canvas, maxWidth);
+        drawLegend1(canvas, houseAndWasteColorMap);
+        firstTimeHouse = false;
+    }
     return;
 }
 
+let firstTimeFood = true;
 function drawFood(canvas, foodArray) {
     let startX = 0;
     let startY = (canvas.height / 2) - 10;
     let rectHeight = 140;
-    let maxWidth = canvas.width - (2 * startX);
+    let rightMargin = 40;
+    let maxWidth = canvas.width - rightMargin;
     let maxValue = maxEmissions;
     drawHorizBar(canvas, foodArray, foodColorMap, startX, startY, rectHeight, maxWidth, maxValue);
-    drawLegend(canvas, foodColorMap);
+    if (firstTimeFood) {
+        drawAxis1(canvas, maxWidth);
+        drawLegend1(canvas, foodColorMap);
+        firstTimeFood = false;
+    }
     return;
 }
 
 function drawHorizBar(canvas, values, colors, startX, startY, rectHeight, maxWidth, maxValue) {
     let cxt = canvas.getContext('2d');
     let curX = startX;
+    let curSum = 0;
+    cxt.fillStyle = "#ffffff";
+    cxt.fillRect(curX + 1, startY - 20, canvas.width, rectHeight + 20);
     for (let key in values) {
         let emissionAmount = values[key];
         let color = colors[key];
@@ -198,9 +220,11 @@ function drawHorizBar(canvas, values, colors, startX, startY, rectHeight, maxWid
         cxt.fillStyle = color;
         cxt.fillRect(curX, startY, rectWidth, rectHeight);
         curX += rectWidth;
+        curSum += emissionAmount;
+        cxt.fillStyle = "#000000";
+        cxt.font = '12px Arial';
+        cxt.fillText(curSum.toFixed(1), curX - 10, startY - 5);
     }
-    cxt.fillStyle = "#ffffff";
-    cxt.fillRect(curX, startY, maxWidth - curX, rectHeight);
 }
 
 function sumArray(arr) {
@@ -211,19 +235,13 @@ function sumArray(arr) {
     return sum;
 }
 
-function sumValues(dict) {
-    let sum = 0;
-    for (let key in dict) {
-        sum += dict[key];
-    }
-    return sum;
-}
-
 function drawVertBar(canvas, values, colors, startX, startY, rectWidth, maxHeight, maxValue) {
     let cxt = canvas.getContext('2d');
+    let buffer = 20;
     cxt.fillStyle = "#ffffff";
-    cxt.fillRect(startX, startY - maxHeight, rectWidth, maxHeight);
+    cxt.fillRect(startX - buffer, startY - canvas.height - 2, rectWidth + buffer, canvas.height);
     let curY = startY;
+    let curSum = 0;
     for (let key in values) {
         let emissionAmount = values[key];
         let color = colors[key];
@@ -231,19 +249,60 @@ function drawVertBar(canvas, values, colors, startX, startY, rectWidth, maxHeigh
         cxt.fillStyle = color;
         cxt.fillRect(startX, curY - rectHeight, rectWidth, rectHeight);
         curY -= rectHeight;
+        curSum += emissionAmount;
+        cxt.fillStyle = "#000000";
+        cxt.font = '12px Arial';
+        cxt.fillText(curSum.toFixed(1), startX - buffer, curY);
     }
 }
 
-function drawLegend(canvas, colorMap) {
+const drawLine1 = function (ctx, x1, y1, x2, y2) {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+function drawAxis1(canvas, maxWidth) {
+    let ctx = canvas.getContext('2d');
+    let height = canvas.height;
+    let curY = height - 40;
+    ctx.strokeStyle = "#080808";
+    ctx.lineWidth = 0.8;
+    drawLine1(ctx, 0, curY, maxWidth, curY);
+    drawLine1(ctx, 0, height - 40, 0, 20);
+    ctx.fillStyle = "#080707";
+    ctx.font = '18px Arial';
+    ctx.fillText(maxEmissions.toFixed(1), maxWidth + 5, curY + 5);
+    ctx.fillText("C02 Emissions (Tons per year)", maxWidth / 2 - 110, curY + 30);
+}
+
+function drawLegend1(canvas, colorMap) {
+    let ctx = canvas.getContext('2d');
+    let curX = 50
+    let curY = 140
+    for (let key in colorMap) {
+        ctx.fillStyle = colorMap[key];
+        ctx.fillRect(curX, curY, 20, 20);
+        ctx.fillStyle = "#000000";
+        ctx.font = '14px Arial';
+        ctx.fillText(key, curX + 25, curY + 15);
+        // Thank you to https://stackoverflow.com/questions/20912889/size-of-character-in-pixels/20915304
+        // for code to find length of a string in pixels as it will be rendered on the canvas
+        let wordLen = ctx.measureText(key).width;
+        curX += 35 + wordLen;
+    }
     return;
 }
 
+let firstTimeBarChart = true;
 function drawBarChart(canvas, transportArray, houseAndWasteArray, foodArray) {
 
     const width = canvas.width;
     const height = canvas.height;
-    const leftMargin = 30;
-    const rightMargin = 176;
+    const leftMargin = 60;
+    const rightMargin = 60;
     const topMargin = 60;
     const botMargin = 50;
     const graphWidth = width - (leftMargin + rightMargin);
@@ -258,22 +317,17 @@ function drawBarChart(canvas, transportArray, houseAndWasteArray, foodArray) {
         ctx.stroke();
     }
 
-    const drawBackground = function () {
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, width, height);
-    }
-
-    const drawAxis = function() {
+    const drawAxis2 = function() {
         ctx.strokeStyle = "#080808";
         ctx.lineWidth = 0.8;
         drawLine(leftMargin, topMargin, leftMargin, height - botMargin);
-        drawLine(leftMargin, height-botMargin, width - rightMargin, height - botMargin);
+        drawLine(leftMargin, height - botMargin, width - rightMargin, height - botMargin);
         ctx.fillStyle = "#080707";
         ctx.font = '18px Arial';
-        ctx.fillText("" + Math.ceil(maxEmissions), leftMargin - (width / 60), topMargin - (width / 60));
+        ctx.fillText("" + maxEmissions.toFixed(1), leftMargin - (width / 60), topMargin - (width / 60));
     }
 
-    const drawTitles = function() {
+    const drawTitles2 = function() {
         let offset = 110;
         ctx.fillStyle = "#0a0707";
         ctx.font = '18px Arial';
@@ -285,40 +339,83 @@ function drawBarChart(canvas, transportArray, houseAndWasteArray, foodArray) {
         ctx.restore();
     }
 
+    const drawLegends2 = function() {
+        const horizBuffer = 165;
+        const spaceX = (graphWidth - (2 * 165)) / (3-1);
+
+        let curX = horizBuffer + leftMargin - 110;
+        let curY = height - botMargin - 80;
+        for (let key in transportColorMap) {
+            ctx.fillStyle = transportColorMap[key];
+            ctx.fillRect(curX, curY, 10, 10);
+            ctx.fillStyle = "#000000";
+            ctx.font = '14px Arial';
+            ctx.fillText(key, curX + 18, curY + 10);
+            curY -= 20;
+        }
+
+        curX += spaceX - 30;
+        curY = height - botMargin - 100;
+        for (let key in houseAndWasteColorMap) {
+            ctx.fillStyle = houseAndWasteColorMap[key];
+            ctx.fillRect(curX, curY, 10, 10);
+            ctx.fillStyle = "#000000";
+            ctx.font = '14px Arial';
+            ctx.fillText(key, curX + 18, curY + 10);
+            curY -= 20;
+        }
+
+        curX += spaceX + 30;
+        curY = height - botMargin - 40;
+        for (let key in foodColorMap) {
+            ctx.fillStyle = foodColorMap[key];
+            ctx.fillRect(curX, curY, 10, 10);
+            ctx.fillStyle = "#000000";
+            ctx.font = '14px Arial';
+            ctx.fillText(key, curX + 18, curY + 10);
+            curY -= 20;
+        }
+    }
+
     const drawBars = function() {
-        const horizBuffer = 60;
+        const horizBuffer = 165;
         const spaceX = (graphWidth - (2 * horizBuffer)) / (3-1);
         const rectWidth = 120;
-        ctx.strokeStyle = "#010101";
         ctx.fillStyle = "#000000";
         ctx.font = '18px Arial';
         let curX = 0;
-        let rectHeight = 0;
 
         curX = horizBuffer + leftMargin;
-        drawVertBar(canvas, transportArray, transportColorMap, curX, height - botMargin, rectWidth, graphHeight, maxEmissions)
-        ctx.fillStyle = "#030303";
-        ctx.fillText("Transport", curX - (width / 25), height - botMargin + (height / 26));
-        ctx.fillText("" + (Math.round(10 * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
-        ctx.fillStyle = "#000000";
+        drawVertBar(canvas, transportArray, transportColorMap, curX, height - botMargin, rectWidth, graphHeight, maxEmissions);
+        if (firstTimeBarChart) {
+            ctx.fillStyle = "#000000";
+            ctx.font = '18px Arial';
+            ctx.fillText("Transport", curX - (width / 25) + (rectWidth / 2), height - botMargin + (height / 26));
+        }
 
         curX += spaceX;
         drawVertBar(canvas, houseAndWasteArray, houseAndWasteColorMap, curX, height - botMargin, rectWidth, graphHeight, maxEmissions);
-        ctx.fillStyle = "#000000";
-        ctx.fillText("Household", curX - (width / 25), height - botMargin + (height / 26));
-        ctx.fillText("" + (Math.round(11 * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
-        ctx.fillStyle = "#080707";
+        if (firstTimeBarChart) {
+            console.log("Here");
+            ctx.fillStyle = "#000000";
+            ctx.font = '18px Arial';
+            ctx.fillText("Household", curX - (width / 25) + (rectWidth / 2), height - botMargin + (height / 26));
+        }
 
         curX += spaceX;
         drawVertBar(canvas, foodArray, foodColorMap, curX, height - botMargin, rectWidth, graphHeight, maxEmissions);
-        ctx.fillStyle = "#000000";
-        ctx.fillText("Food", curX, height - botMargin + (height / 26));
-        ctx.fillText("" + (Math.round(12 * 100) / 100.0), curX, height - botMargin - rectHeight - (height / 39));
-        ctx.fillStyle = "#070707";
+        if (firstTimeBarChart) {
+            ctx.fillStyle = "#000000";
+            ctx.font = '18px Arial';
+            ctx.fillText("Food", curX + (rectWidth / 3), height - botMargin + (height / 26));
+        }
     }
 
-    drawBackground();
-    drawAxis();
-    drawTitles();
+    if (firstTimeBarChart) {
+        drawAxis2();
+        drawTitles2();
+        drawLegends2();
+        firstTimeBarChart = false;
+    }
     drawBars();
 }
